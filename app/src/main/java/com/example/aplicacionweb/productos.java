@@ -58,7 +58,6 @@ public class productos {
     public void setEmail(String email) {
         this.email = email;
     }
-
     public String getDui() {
         return dui;
     }
