@@ -1,5 +1,6 @@
 package com.example.aplicacionweb;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -16,12 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -30,32 +26,33 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class lista_producto extends Activity {
+public class lista_habito extends Activity {
     Bundle parametros = new Bundle();
-    ListView ltsProductos;
-    Cursor cProductos;
+    ListView ltsHabitos;
+    Cursor cHabitos;
     DB db;
-    final ArrayList<productos> alProductos = new ArrayList<productos>();
-    final ArrayList<productos> alProductosCopia = new ArrayList<productos>();
+    final ArrayList<habitos> alHabitos = new ArrayList<habitos>();
+    final ArrayList<habitos> alHabitosCopia = new ArrayList<habitos>();
     JSONArray jsonArray;
     JSONObject jsonObject;
-    productos misProductos;
+    habitos misHabitos;
     FloatingActionButton fab;
     int posicion = 0;
     obtenerDatosServidor datosServidor;
     detectarInternet di;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_productos);
+        setContentView(R.layout.activity_lista_habitos);
 
         parametros.putString("accion", "nuevo");
         db = new DB(this);
 
-        fab = findViewById(R.id.fabAgregarProducto);
+        fab = findViewById(R.id.fabAgregarHabitos);
         fab.setOnClickListener(view -> abriVentana());
         listarDatos();
-        buscarProductos();
+        buscarHabitos();
     }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -77,7 +74,7 @@ public class lista_producto extends Activity {
                 abriVentana();
             } else if (item.getItemId() == R.id.mnxModificar) {
                 parametros.putString("accion", "modificar");
-                parametros.putString("productos", jsonArray.getJSONObject(posicion).getJSONObject("value").toString());
+                parametros.putString("habitos", jsonArray.getJSONObject(posicion).getJSONObject("value").toString());
                 abriVentana();
             } else if (item.getItemId() == R.id.mnxEliminar) {
                 eliminarProducto();
@@ -109,7 +106,7 @@ public class lista_producto extends Activity {
                             mostrarMsg("Error: " + respuesta);
                         }
                     }
-                    String respuesta = db.administrar_productos("eliminar",
+                    String respuesta = db.administrar_habitos("eliminar",
                             new String[]{jsonArray.getJSONObject(posicion).getJSONObject("value").getString("idProducto")});
                     if (respuesta.equals("ok")) {
                         listarDatos();
@@ -151,25 +148,25 @@ public class lista_producto extends Activity {
     }
     private void obtenerDatosLocales() {
         try {
-            cProductos = db.lista_producto();
-            if (cProductos.moveToFirst()) {
+            cHabitos = db.lista_habitos();
+            if (cHabitos.moveToFirst()) {
                 jsonArray = new JSONArray();
                 do {
                     jsonObject = new JSONObject();
                     JSONObject value = new JSONObject();
-                    value.put("idProducto", cProductos.getString(0));
-                    value.put("nombre", cProductos.getString(1));
-                    value.put("direccion", cProductos.getString(2));
-                    value.put("telefono", cProductos.getString(3));
-                    value.put("email", cProductos.getString(4));
-                    value.put("dui", cProductos.getString(5));
-                    value.put("urlFoto", cProductos.getString(6));
+                    value.put("idProducto", cHabitos.getString(0));
+                    value.put("nombre", cHabitos.getString(1));
+                    value.put("direccion", cHabitos.getString(2));
+                    value.put("telefono", cHabitos.getString(3));
+                    value.put("email", cHabitos.getString(4));
+                    value.put("dui", cHabitos.getString(5));
+                    value.put("urlFoto", cHabitos.getString(6));
                     jsonObject.put("value", value);
                     jsonArray.put(jsonObject);
-                } while (cProductos.moveToNext());
+                } while (cHabitos.moveToNext());
                 mostrarDatosProductos();
             } else {
-                mostrarMsg("No hay productos registrados.");
+                mostrarMsg("No hay habitos registrados.");
                 abriVentana();
             }
         } catch (Exception e) {
@@ -179,13 +176,13 @@ public class lista_producto extends Activity {
     private void mostrarDatosProductos() {
         try {
             if (jsonArray.length() > 0) {
-                ltsProductos = findViewById(R.id.ltsProductos);
-                alProductos.clear();
-                alProductosCopia.clear();
+                ltsHabitos = findViewById(R.id.ltsHabitos);
+                alHabitos.clear();
+                alHabitosCopia.clear();
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     jsonObject = jsonArray.getJSONObject(i).getJSONObject("value");
-                    misProductos = new productos(
+                    misHabitos = new habitos(
                             jsonObject.getString("idProducto"),
                             jsonObject.getString("nombre"),
                             jsonObject.getString("direccion"),
@@ -194,40 +191,40 @@ public class lista_producto extends Activity {
                             jsonObject.getString("dui"),
                             jsonObject.getString("urlFoto")
                     );
-                    alProductos.add(misProductos);
+                    alHabitos.add(misHabitos);
                 }
-                alProductosCopia.addAll(alProductos);
-                ltsProductos.setAdapter(new AdaptadorProductos(this, alProductos));
-                registerForContextMenu(ltsProductos);
+                alHabitosCopia.addAll(alHabitos);
+                ltsHabitos.setAdapter(new AdaptadorHabitos(this, alHabitos));
+                registerForContextMenu(ltsHabitos);
             } else {
-                mostrarMsg("No hay productos registrados.");
+                mostrarMsg("No hay habitos registrados.");
                 abriVentana();
             }
         } catch (Exception e) {
             mostrarMsg("Error: " + e.getMessage());
         }
     }
-    private void buscarProductos() {
-        TextView tempVal = findViewById(R.id.txtBuscarProductos);
+    private void buscarHabitos() {
+        TextView tempVal = findViewById(R.id.txtBuscarHabitos);
         tempVal.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                alProductos.clear();
+                alHabitos.clear();
                 String buscar = tempVal.getText().toString().trim().toLowerCase();
                 if (buscar.length() <= 0) {
-                    alProductos.addAll(alProductosCopia);
+                    alHabitos.addAll(alHabitosCopia);
                 } else {
-                    for (productos item : alProductosCopia) {
+                    for (habitos item : alHabitosCopia) {
                         if (item.getNombre().toLowerCase().contains(buscar) ||
                                 item.getDui().toLowerCase().contains(buscar) ||
                                 item.getEmail().toLowerCase().contains(buscar)) {
-                            alProductos.add(item);
+                            alHabitos.add(item);
                         }
                     }
-                    ltsProductos.setAdapter(new AdaptadorProductos(getApplicationContext(), alProductos));
+                    ltsHabitos.setAdapter(new AdaptadorHabitos(getApplicationContext(), alHabitos));
                 }
             }
             @Override

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-feature android:name="android.hardware.camera" android:required="true"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
@@ -17,17 +19,37 @@
         android:theme="@style/Theme.AplicacionWeb"
         tools:targetApi="31">
 
-        <activity android:name=".MainActivity"
-            android:exported="true"/>
+        <!-- Corregido el nombre de la actividad principal -->
+
         <activity
-            android:name=".lista_producto"
+            android:name=".AgregarHabitoActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".RegistrarAguaActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".RegistrarPasosActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+
+        <activity android:name=".lista_habito"
+            android:exported="true"/>
+
+        <!-- Activity de Login, sigue siendo el Launcher -->
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:authorities="com.example.aplicacionweb.fileprovider"
             android:name="androidx.core.content.FileProvider"

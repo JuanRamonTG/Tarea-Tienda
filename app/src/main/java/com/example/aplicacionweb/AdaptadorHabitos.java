@@ -13,25 +13,25 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class AdaptadorProductos extends BaseAdapter {
+class AdaptadorHabitos extends BaseAdapter {
     Context context;
-    ArrayList<productos> alProductos;
-    productos misProductos;
+    ArrayList<habitos> alHabitos;
+    habitos misHabitos;
     LayoutInflater inflater;
 
-    public AdaptadorProductos(Context context, ArrayList<productos> alProductos) {
+    public AdaptadorHabitos(Context context, ArrayList<habitos> alHabitos) {
         this.context = context;
-        this.alProductos = alProductos;
+        this.alHabitos = alHabitos;
     }
 
     @Override
     public int getCount() {
-        return alProductos.size();
+        return alHabitos.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return alProductos.get(position);
+        return alHabitos.get(position);
     }
 
     @Override
@@ -44,19 +44,19 @@ public class AdaptadorProductos extends BaseAdapter {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = inflater.inflate(R.layout.fotos, parent, false);
         try {
-            misProductos = alProductos.get(position);
+            misHabitos = alHabitos.get(position);
 
            TextView tempVal = itemView.findViewById(R.id.lblNombreAdaptador);
-            tempVal.setText(misProductos.getNombre());
+            tempVal.setText(misHabitos.getNombre());
 
             tempVal = itemView.findViewById(R.id.lblTelefonoAdaptador);
-            tempVal.setText(misProductos.getTelefono());
+            tempVal.setText(misHabitos.getTelefono());
 
             tempVal = itemView.findViewById(R.id.lblEmailAdaptador);
-            tempVal.setText(misProductos.getEmail());
+            tempVal.setText(misHabitos.getEmail());
 
             ImageView img = itemView.findViewById(R.id.imgFotoAdaptador);
-            Bitmap bitmap = BitmapFactory.decodeFile(misProductos.getFoto());
+            Bitmap bitmap = BitmapFactory.decodeFile(misHabitos.getFoto());
             img.setImageBitmap(bitmap);
         } catch (Exception e) {
             Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();

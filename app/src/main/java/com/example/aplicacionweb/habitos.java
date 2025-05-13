@@ -1,6 +1,6 @@
 package com.example.aplicacionweb;
 
-public class productos {
+public class habitos {
     String idProducto;
     String nombre;
     String direccion;
@@ -9,7 +9,7 @@ public class productos {
     String dui;
     String foto;
 
-    public productos(String idProducto, String nombre, String direccion, String telefono, String email, String dui, String foto) {
+    public habitos(String idProducto, String nombre, String direccion, String telefono, String email, String dui, String foto) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.direccion = direccion;
