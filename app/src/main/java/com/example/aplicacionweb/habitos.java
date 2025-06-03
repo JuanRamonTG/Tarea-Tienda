@@ -8,8 +8,10 @@ public class habitos {
     String email;
     String dui;
     String foto;
+    String urlCompletaFotoFirestore;
+    String token;
 
-    public habitos(String idProducto, String nombre, String direccion, String telefono, String email, String dui, String foto) {
+    public habitos(String idProducto, String nombre, String direccion, String telefono, String email, String dui, String foto, String urlCompletaFotoFirestore, String token) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -17,6 +19,8 @@ public class habitos {
         this.email = email;
         this.dui = dui;
         this.foto = foto;
+        this.token = token;
+        this.urlCompletaFotoFirestore = urlCompletaFotoFirestore;
     }
 
     public String getIdProducto() {
