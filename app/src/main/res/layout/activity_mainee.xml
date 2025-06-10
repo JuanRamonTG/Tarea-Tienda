@@ -7,12 +7,9 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-
-
     <EditText
         android:id="@+id/txtNombre"
-        android:hint="Nombre de producto"
+        android:hint="Nombre"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -25,28 +22,24 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:inputType="text"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/txtTelefono"
-        android:hint="Marca"
+        android:hint="Telefono"
         android:layout_below="@id/txtDireccion"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
-        android:inputType="text"
         android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/txtEmail"
-        android:hint="Descrpcion"
+        android:hint="Email"
         android:layout_below="@id/txtTelefono"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <EditText
@@ -57,33 +50,30 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="wrap_content"/>
     <ImageButton
-        android:id="@+id/imgFotoProducto"
+        android:id="@+id/imgFotoAmigo"
         android:layout_below="@id/txtDui"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
         android:src="@mipmap/ic_launcher_round"
-        android:contentDescription="Imagen del Producto"
-        android:background="?android:attr/selectableItemBackgroundBorderless"/>
-
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
     <Button
-        android:id="@+id/btnGuardarProducto"
-        android:text="Guardar Producto"
-        android:layout_below="@id/imgFotoProducto"
+        android:id="@+id/btnGuardarAmigo"
+        android:text="Guardar Amigo"
+        android:layout_below="@id/imgFotoAmigo"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabListaHabito"
+        android:id="@+id/fabListaAmigos"
         android:src="@android:drawable/ic_menu_revert"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
 </RelativeLayout>

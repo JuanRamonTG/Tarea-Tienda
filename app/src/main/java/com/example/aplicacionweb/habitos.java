@@ -23,6 +23,26 @@ public class habitos {
         this.urlCompletaFotoFirestore = urlCompletaFotoFirestore;
     }
 
+
+
+    public String getUrlCompletaFotoFirestore() {
+        return urlCompletaFotoFirestore;
+    }
+    public void setUrlCompletaFotoFirestore(String urlCompletaFotoFirestore) {
+        this.urlCompletaFotoFirestore = urlCompletaFotoFirestore;
+    }
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getIdHabito() {
+        return idProducto;
+    }
+
     public String getIdProducto() {
         return idProducto;
     }
